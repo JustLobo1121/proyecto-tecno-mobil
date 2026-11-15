@@ -1,4 +1,4 @@
-import { ScreenContent } from '../proyecto-tecno-mobil-2/components/ScreenContent';
+import { ScreenContent } from './components/ScreenContent';
 import { StatusBar } from 'expo-status-bar';
 
 import './global.css';
