@@ -1,10 +1,12 @@
 {
   "name": "proyecto-tecno-mobil",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./src/index.jsx",
+  "type": "module",
   "dependencies": {
     "expo": "~58.0.25",
     "expo-status-bar": "~58.0.5",
+    "nativewind": "^4.2.7",
     "react": "19.3.0",
     "react-native": "0.88.1"
   },
@@ -14,5 +16,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
-  "private": true
+  "private": true,
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
 }
