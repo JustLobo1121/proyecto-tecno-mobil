@@ -3,6 +3,7 @@
 - [X] uso api(?)
 - [ ] tema de colores
 - [ ] estilo de carga
+- [ ] animacion de transicion
 - [ ] vistas intervenciones
 - [ ] vistas sitios
 - [ ] vistas centros

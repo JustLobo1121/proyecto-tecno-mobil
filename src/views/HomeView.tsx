@@ -1,19 +1,20 @@
 import { View, Text, Pressable } from "react-native";
-import { Link, useRouter } from "expo-router";
+import { useAuth } from "../context/AuthContext";
 
-export default function HomeScreen() {
-  const router = useRouter();
+export default function HomeView() {
+  const { signOut } = useAuth();
 
   return (
-    <View className="flex-1 items-center justify-center bg-slate-900 p-4">
+    <View className="flex-1 items-center justify-center bg-slate-900 p-6">
       <Text className="text-2xl font-bold text-white mb-6">
-        Pantalla de Inicio
+        Pantalla Principal
       </Text>
+
       <Pressable
-        onPress={() => router.push("sensors")}
-        className="bg-emerald-600 px-6 py-3 rounded-lg active:bg-emerald-700"
+        onPress={signOut}
+        className="bg-red-600 px-6 py-3 rounded-xl active:bg-red-700"
       >
-        <Text className="text-white font-semibold">Ir a Perfil (Hook)</Text>
+        <Text className="text-white font-semibold">Cerrar Sesión</Text>
       </Pressable>
     </View>
   );

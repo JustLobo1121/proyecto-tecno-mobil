@@ -1,25 +1,28 @@
 import { View, Text, Pressable } from "react-native";
-import { Link, useRouter } from "expo-router";
-import { useEffect } from "react";
-import { AuthProvider } from "@/context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 
-export default function HomeScreen() {
-  const router = useRouter();
-  useEffect(() => {
-    AuthProvider.signIn
-  })
+export default function LoginView() {
+  const { signIn } = useAuth();
+
+  const handleDummyLogin = async () => {
+    await signIn("token-dummy-123");
+  };
 
   return (
-    <View className="flex-1 items-center justify-center bg-slate-900 p-4">
-      <Text className="text-2xl font-bold text-white mb-6">
-        Pantalla de Inicio
+    <View className="flex-1 items-center justify-center bg-slate-900 p-6">
+      <Text className="text-3xl font-bold text-white mb-2">Bienvenido</Text>
+      <Text className="text-slate-400 mb-8 text-center">
+        Inicia sesión para continuar
       </Text>
+
       <Pressable
-        onPress={() => router.push("/app/sensors")}
-        className="bg-emerald-600 px-6 py-3 rounded-lg active:bg-emerald-700"
+        onPress={handleDummyLogin}
+        className="w-full bg-blue-600 py-4 rounded-xl items-center active:bg-blue-700"
       >
-        <Text className="text-white font-semibold">iniciar sesion</Text>
+        <Text className="text-white font-semibold text-lg">
+          Iniciar Sesión (Dummy)
+        </Text>
       </Pressable>
     </View>
   );
-}   
+}
