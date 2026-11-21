@@ -2,12 +2,14 @@
   "expo": {
     "name": "proyecto-tecno-mobil",
     "slug": "proyecto-tecno-mobil",
+    "scheme": "proyecto-tecno-mobil",
     "version": "1.0.0",
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "experiments": {
-      "tsconfigPaths": true
+      "tsconfigPaths": true,
+      "typedRoutes": true
     },
     "plugins": [
       [
@@ -17,7 +19,13 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-status-bar"
+      "expo-status-bar",
+      [
+        "expo-router",
+        {
+          "root": "./src/routes"
+        }
+      ]
     ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
