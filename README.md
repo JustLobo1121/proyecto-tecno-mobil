@@ -12,3 +12,7 @@
  views/ 
  hacer una importacion del view en routes/,,,.tsx
  y actualizar el _layout.tsx
+- uso del router:
+ -routes
+ |- auth: requiere del login(grupo publico)
+ |- app: aplicacion interna(grupo privado)
