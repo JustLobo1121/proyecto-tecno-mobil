@@ -18,7 +18,7 @@ export default function AppLayout() {
   }
 
   return (
-    <Stack>
+    <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name="index" options={{ title: "Inicio" }} />
       <Stack.Screen name="sensors" options={{ title: "Sensores" }} />
     </Stack>

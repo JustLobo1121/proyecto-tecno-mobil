@@ -1,6 +1,8 @@
 import * as SecureStorage from 'expo-secure-store'
-const baseURL = process.env.EXPO_PUBLIC_API_URL;
 export const TOKEN_KEY = "token"
+const baseURL = process.env.EXPO_PUBLIC_API_URL;
+let onUnauthorized: (() => void) | null = null
+export const setOnUnauthorized = (fn: () => void) => { onUnauthorized = fn }
 
 export async function apiFetch<T = any>(path: string, options: RequestInit = {}): Promise<T> {
     const token = SecureStorage.getItem(TOKEN_KEY)
@@ -9,10 +11,10 @@ export async function apiFetch<T = any>(path: string, options: RequestInit = {})
     if (token) headers.set("Authorization", `Bearer ${token}`)
 
     const res = await fetch(`${baseURL}${path}`, { ...options, headers })
-
+    
     if (res.status === 401 && token) {
         await SecureStorage.deleteItemAsync(TOKEN_KEY)
-        // ref to login
+        onUnauthorized?.()
         throw new Error("Sesion expirada")
     }
 
