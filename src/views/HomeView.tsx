@@ -5,8 +5,8 @@ export default function HomeView() {
   const { signOut } = useAuth();
 
   return (
-    <View className="flex-1 items-center justify-center bg-slate-900 p-6">
-      <Text className="text-2xl font-bold text-white mb-6">
+    <View className="flex-1 items-center justify-center p-6">
+      <Text className="text-2xl font-bold mb-6">
         Pantalla Principal
       </Text>
 
