@@ -1,10 +1,14 @@
-import { Tabs } from "expo-router"
+import { Redirect, Tabs } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { useAuth } from "@/context/AuthContext";
 
 export default function AppLayout() {
+  const { session, isLoading } = useAuth();
   const insets = useSafeAreaInsets()
 
+  if (isLoading) return null;
+  if (!session) return <Redirect href="/login" />;
   return (
     <Tabs
       screenOptions={{
@@ -33,7 +37,7 @@ export default function AppLayout() {
         options={{
           title: "Inicio",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" color={color} size={28} />
+            <Ionicons name="home-outline" color={color as string} size={28} />
           ),
         }}
       />
@@ -42,7 +46,7 @@ export default function AppLayout() {
         options={{
           title: "Sensores",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="desktop-outline" color={color} size={28} />
+            <Ionicons name="desktop-outline" color={color as string} size={28} />
           ),
         }}
       />
@@ -51,7 +55,7 @@ export default function AppLayout() {
         options={{
           title: "Intervenciones",
           tabBarIcon: ({ color }) => (
-            <Ionicons name="clipboard-outline" color={color} size={28} />
+            <Ionicons name="clipboard-outline" color={color as string} size={28} />
           ),
         }}
       />

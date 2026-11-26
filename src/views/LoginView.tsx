@@ -26,10 +26,11 @@ export default function LoginView() {
 			const data = await apiFetch("/token", {
 				method: "POST",
 				headers: { "Content-Type": "application/x-www-form-urlencoded" },
-				body: new URLSearchParams({ username: user, password }).toString(),
+				body: new URLSearchParams({ username: user.trim(), password }).toString(),
 			})
 			await signIn(data.access_token)
 		} catch (e: any) {
+			console.error("Error en login:", e)
 			setError("Usuario o contraseña incorrectos")
 		} finally {
 			setLoading(false)
@@ -52,10 +53,13 @@ export default function LoginView() {
 					<Text className="text-slate-600 text-sm font-medium ml-1">
 						Usuario
 					</Text>
-					<TextInput className={`w-full flex-row items-center rounded-xl border-2 ${focused ? "border-blue-500" : "border-slate-700"}`}
+					<TextInput className={`w-full flex-row items-center rounded-xl border-2 px-4 py-3.5 ${focused ? "border-blue-500" : "border-slate-700"}`}
 						placeholder="Ingresa tu usuario"
 						placeholderTextColor="#94a3b8"
-						onChangeText={setUser}
+						autoCapitalize="none"
+						autoCorrect={false}
+						value={user}
+						onChangeText={(t) => { setUser(t); setError("") }}
 						onFocus={() => setFocused(true)}
 						onBlur={() => setFocused(false)}
 					/>
