@@ -3,7 +3,7 @@ import { Platform } from 'react-native';
 import { Slot } from 'expo-router';
 import * as NavigationBar from 'expo-navigation-bar';
 import { StatusBar } from 'expo-status-bar';
-import { AuthProvider } from '../context/AuthContext';
+import { AuthProvider } from '@/context/AuthContext';
 import '../../global.css';
 
 export default function RootLayout() {

@@ -1,42 +1,42 @@
-declare global {
-	interface ImportMeta {
-		readonly env: {
-			readonly VITE_API_URL: string;
-		};
-	}
-}
-
-const baseURL = import.meta.env.VITE_API_URL;
+import * as SecureStorage from 'expo-secure-store'
+const baseURL = process.env.EXPO_PUBLIC_API_URL;
 export const TOKEN_KEY = "token"
 
-export async function apiFetch(path: any, options: RequestInit = {}) {
-    const token = localStorage.getItem(TOKEN_KEY)
-	const headers = new Headers(options.headers)
+export async function apiFetch<T = any>(path: string, options: RequestInit = {}): Promise<T> {
+    const token = SecureStorage.getItem(TOKEN_KEY)
+    const headers = new Headers(options.headers)
 
-	if (token) headers.set("Authorization", `Bearer ${token}`)
+    if (token) headers.set("Authorization", `Bearer ${token}`)
 
-    const res = await fetch(`${baseURL}${path}`, {...options, headers})
+    const res = await fetch(`${baseURL}${path}`, { ...options, headers })
 
     if (res.status === 401 && token) {
-        localStorage.removeItem(TOKEN_KEY)
+        await SecureStorage.deleteItemAsync(TOKEN_KEY)
         // ref to login
         throw new Error("Sesion expirada")
     }
 
     if (!res.ok) {
-        const body = await res.json().catch(() => {})
-        const msg = typeof body.detail === "string" ? body.detail: "Error en la peticion"
-        throw new Error(msg)
+    const body = await res.json().catch(() => ({}))
+    let msg = "Error en la peticion"
+    if (typeof body?.detail === "string") {
+        msg = body.detail
+    } else if (Array.isArray(body?.detail)) {
+        msg = body.detail.map((d: any) => d.msg).join(", ")
     }
+    throw new Error(msg)
+}
+
+    if (res.status === 204) return undefined as T
 
     return res.json()
 }
 
-export function toQuery(param: RequestInit = {}) {
+export function toQuery(param: Record<string, string | number | boolean | null | undefined> = {}) {
     const query = new URLSearchParams()
     Object.entries(param).forEach(([key, value]) => {
-        if (value !== undefined && value !== null && value !== "") query.append(key,value) 
+        if (value !== undefined && value !== null && value !== "") query.append(key, String(value))
     })
     const text = query.toString()
-    return text ? `?${text}` : "";
+    return text ? `?${text}` : ""
 }
