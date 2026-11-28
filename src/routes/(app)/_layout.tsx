@@ -3,10 +3,12 @@ import { Ionicons } from "@expo/vector-icons"
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { useAuth } from "@/context/AuthContext"
+import { useTheme } from '@/context/ThemeContext'
 import Header from "@/components/Header"
 
 export default function AppLayout() {
-  const { session, isLoading } = useAuth();
+  const { session, isLoading } = useAuth()
+  const { isDark } = useTheme()
   const insets = useSafeAreaInsets()
 
   if (isLoading) return null;
@@ -17,11 +19,11 @@ export default function AppLayout() {
 		header: ({ options, route }) => (
       		<Header title={(options.title as string) ?? route.name} />
     	),
-        tabBarActiveTintColor: "#000000",
-        tabBarInactiveTintColor: "#94a3b8",
+        tabBarActiveTintColor: "#3b82f6",
+        tabBarInactiveTintColor: isDark ? "#94a3b8" : "#64748b",
         tabBarStyle: {
-          backgroundColor: "#ffffff",
-          borderTopColor: "#1e293b",
+          backgroundColor: isDark ? "#0f172a" : "#ffffff",
+          borderTopColor: isDark ? "#1e293b" : "#e2e8f0",
           height: 70 + insets.bottom,
           paddingTop: 8,
           paddingBottom: 10 + insets.bottom,

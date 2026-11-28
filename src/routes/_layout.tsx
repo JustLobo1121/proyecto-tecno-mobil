@@ -1,22 +1,32 @@
-import { useEffect } from 'react';
-import { Platform } from 'react-native';
-import { Slot } from 'expo-router';
-import * as NavigationBar from 'expo-navigation-bar';
-import { StatusBar } from 'expo-status-bar';
-import { AuthProvider } from '@/context/AuthContext';
-import '../../global.css';
+import { Stack } from "expo-router"
+import { AuthProvider, useAuth } from "@/context/AuthContext"
+import { ThemeProvider } from '@/context/ThemeContext'
+import '../../global.css'
 
-export default function RootLayout() {
-  useEffect(() => {
-    if (Platform.OS === 'android') {
-      NavigationBar.setStyle('dark');
-    }
-  }, []);
+function RootNavigator() {
+  const { session, isLoading } = useAuth()
+
+  if (isLoading) return null
 
   return (
-    <AuthProvider>
-      <StatusBar style="light" />
-      <Slot />
-    </AuthProvider>
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!!session}>
+        <Stack.Screen name="(app)" />
+      </Stack.Protected>
+
+      <Stack.Protected guard={!session}>
+        <Stack.Screen name="login" />
+      </Stack.Protected>
+    </Stack>
+  )
+}
+
+export default function RootLayout() {
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <RootNavigator />
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

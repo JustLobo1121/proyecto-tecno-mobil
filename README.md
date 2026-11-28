@@ -2,12 +2,16 @@
 
 - cosas pendientes:
 - [X] uso api(?)
-- [ ] tema de colores
 - [ ] estilo de carga
 - [ ] animacion de transicion
 - [ ] vistas intervenciones
 - [ ] vistas sitios
 - [ ] vistas centros
+
+## recordatorios
+
+- desarollo principal en modo dia y despues se arregla en modo oscuro
+- uso con dark: ...
 
 ## datos
 

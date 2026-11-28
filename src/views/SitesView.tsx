@@ -3,8 +3,8 @@ import { View, Text } from "react-native"
 export default function SitesView() {
 
   return (
-    <View className="flex-1 items-center justify-center p-6">
-      <Text className="text-2xl font-bold mb-6">
+    <View className="flex-1 items-center bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 justify-center p-6">
+      <Text className="text-2xl text-slate-900 dark:text-white font-bold mb-6">
         Pantalla Centros
       </Text>
     </View>
