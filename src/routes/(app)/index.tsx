@@ -1,1 +1,1 @@
-export { default } from "@/views/HomeView"
+export { default } from "@/views/InterventionsView"

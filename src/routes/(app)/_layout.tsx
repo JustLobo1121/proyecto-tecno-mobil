@@ -1,7 +1,9 @@
 import { Redirect, Tabs } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { useAuth } from "@/context/AuthContext";
+import { useAuth } from "@/context/AuthContext"
+import Header from "@/components/Header"
 
 export default function AppLayout() {
   const { session, isLoading } = useAuth();
@@ -12,7 +14,9 @@ export default function AppLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
+		header: ({ options, route }) => (
+      		<Header title={(options.title as string) ?? route.name} />
+    	),
         tabBarActiveTintColor: "#000000",
         tabBarInactiveTintColor: "#94a3b8",
         tabBarStyle: {
@@ -35,27 +39,18 @@ export default function AppLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Inicio",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="home-outline" color={color as string} size={28} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="sensors"
-        options={{
-          title: "Sensores",
-          tabBarIcon: ({ color }) => (
-            <Ionicons name="desktop-outline" color={color as string} size={28} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="interventions"
-        options={{
           title: "Intervenciones",
           tabBarIcon: ({ color }) => (
             <Ionicons name="clipboard-outline" color={color as string} size={28} />
+          ),
+        }}
+      />
+	  <Tabs.Screen
+        name="sites"
+        options={{
+          title: "Centros",
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons	 name="map-marker-outline" color={color as string} size={28} />
           ),
         }}
       />
